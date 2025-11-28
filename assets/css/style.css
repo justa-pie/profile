@@ -152,6 +152,7 @@ h1 {
 }
 
 .contact {
+    position: absolute;
     color: gray;
     font-size: medium;
     left: 5px;
