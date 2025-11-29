@@ -77,12 +77,10 @@
 
         // Theo dõi vị trí chuột trên toàn bộ trang
         document.addEventListener('mousemove', (e) => {
-            // Cập nhật vị trí của vùng sáng
-            // Dùng clientX và clientY là vị trí chuột
-            // Trừ đi 50% kích thước vùng sáng (width/height 100px) để căn giữa chuột
-            starFlare.style.left = e.clientX + 'px';
-            starFlare.style.top = e.clientY + 'px';
-            
+            // SỬA ĐỔI: Dùng thuộc tính CSS 'transform' để di chuyển phần tử. 
+            // Phương pháp này nhanh hơn và hoạt động tốt hơn với translate(-50%, -50%) trong CSS.
+            starFlare.style.transform = `translate(-50%, -50%) translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+
             // Đảm bảo vùng sáng hiển thị khi chuột di chuyển
             starFlare.style.opacity = 1; 
         });
