@@ -17,29 +17,43 @@ body {
 }
 
 /* Animated background */
+.stars {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 11; /* ĐIỀU CHỈNH QUAN TRỌNG: Đặt cao hơn profile-container (10) */
+}
 
 .star {
     position: absolute;
     width: 2px;
     height: 2px;
-    background: white;
+    background: #fff;
     border-radius: 50%;
-    opacity: 0.5; /* Độ mờ ban đầu */
-    animation: twinkle 3s infinite ease-in-out; /* Hiệu ứng nhấp nháy ban đầu */
-    transition: opacity 0.2s ease, box-shadow 0.2s ease; /* Chuyển động mượt mà khi thay đổi sáng */
-    /* pointer-events: none; (có thể thêm nếu muốn chuột xuyên qua sao) */
-}
-
-/* Class mới khi sao được kích hoạt bởi chuột */
-.star.active {
-    opacity: 1; /* Sáng hơn */
-    box-shadow: 0 0 5px 2px rgba(255, 255, 255, 0.8), /* Phát sáng trắng */
-                0 0 10px 4px rgba(173, 216, 230, 0.5); /* Phát sáng xanh nhạt */
+    animation: twinkle 3s infinite ease-in-out;
+    transition: opacity 0.2s ease, box-shadow 0.2s ease;
 }
 
 @keyframes twinkle {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 1; }
+    /* ... (Giữ nguyên) ... */
+    0%, 100% { 
+        opacity: 0.6; 
+        box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+    }
+    50% { 
+        opacity: 1; 
+        box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+    }
+}
+
+/* Class Active: Kích hoạt khi chuột đến gần */
+.star.active {
+    opacity: 1 !important;
+    box-shadow: 0 0 8px 4px rgba(255, 255, 255, 0.9),
+                0 0 20px 8px rgba(173, 216, 230, 0.7);
 }
 
 /* Main container */
@@ -50,11 +64,16 @@ body {
     border-radius: 24px;
     padding: 60px 80px;
     text-align: center;
-    max-width: 600px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 90%;
     position: relative;
-    z-index: 10;
-    animation: fadeIn 0.8s ease;
+    z-index: 10; /* Giữ nguyên z-index này */
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+
+.profile-container:hover {
+    transform: translateY(-5px);
 }
 
 @keyframes fadeIn {
