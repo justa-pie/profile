@@ -92,6 +92,7 @@ body {
     position: relative;
     display: inline-block;
     margin-bottom: 30px;
+    z-index: 12;
 }
 
 .avatar {
@@ -108,6 +109,7 @@ body {
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
     animation: float 3s ease-in-out infinite;
     margin: 0 auto;
+    z-index: 12;
 }
 
 @keyframes float {
