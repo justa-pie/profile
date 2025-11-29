@@ -5,7 +5,13 @@
 }
 
 body {
-    /* ... (Giữ nguyên) ... */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #000;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
     overflow: hidden;
     position: relative;
 }
@@ -18,7 +24,6 @@ body {
     top: 0;
     left: 0;
     pointer-events: none;
-    z-index: 11; /* ĐIỀU CHỈNH QUAN TRỌNG: Đặt cao hơn profile-container (10) */
 }
 
 .star {
@@ -28,26 +33,26 @@ body {
     background: #fff;
     border-radius: 50%;
     animation: twinkle 3s infinite ease-in-out;
-    transition: opacity 0.2s ease, box-shadow 0.2s ease;
+    transition: opacity 0.2s ease, box-shadow 0.2s ease; /* Thêm transition để chuyển đổi mượt mà */
 }
 
 @keyframes twinkle {
-    /* ... (Giữ nguyên) ... */
+    /* Điều chỉnh opacity tối thiểu lên 0.6 để sao luôn sáng */
     0%, 100% { 
         opacity: 0.6; 
-        box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+        box-shadow: 0 0 2px rgba(255, 255, 255, 0.5); /* Sáng mờ ban đầu */
     }
     50% { 
         opacity: 1; 
-        box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 4px rgba(255, 255, 255, 0.8); /* Sáng rõ nhất khi nhấp nháy */
     }
 }
 
 /* Class Active: Kích hoạt khi chuột đến gần */
 .star.active {
-    opacity: 1 !important;
-    box-shadow: 0 0 8px 4px rgba(255, 255, 255, 0.9),
-                0 0 20px 8px rgba(173, 216, 230, 0.7);
+    opacity: 1 !important; /* Đảm bảo độ sáng tối đa, tránh bị animation ghi đè */
+    box-shadow: 0 0 8px 4px rgba(255, 255, 255, 0.9), /* Sáng rực trắng */
+                0 0 20px 8px rgba(173, 216, 230, 0.7); /* Sáng rực xanh nhạt */
 }
 
 /* Main container */
@@ -58,16 +63,11 @@ body {
     border-radius: 24px;
     padding: 60px 80px;
     text-align: center;
-    max-width: 500px;
-    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     position: relative;
-    z-index: 10; /* Giữ nguyên z-index này */
-    transform: translateY(0);
-    transition: transform 0.3s ease;
-}
-
-.profile-container:hover {
-    transform: translateY(-5px);
+    z-index: 10;
+    animation: fadeIn 0.8s ease;
 }
 
 @keyframes fadeIn {
