@@ -19,10 +19,6 @@
         <p class="subtitle">I just sort of always feel sick without you baby</p>
         <p class="subtitle">Nothing seems to stick without you, baby</p>
         <p class="subtitle">It's like everyone's a dick without you, baby</p>
-        <div class="location">
-            <span>📍</span>
-            <span>Vietnam.</span>
-        </div>
 
         <div class="social-icons">
             <a href="https://open.spotify.com/user/31qnjpnb6alfzi3xe3nrog6vmnpy?si=uM-zDuUUT7-JDx7aBVGlBw" class="social-icon" target="_blank" title="Spotify">
@@ -53,6 +49,8 @@
 
     <div class="contact">Coded by @justapiee - pie9757</div>
 
+    <div class="cte">Click to enter!</div>
+
     <audio id="backgroundAudio" loop>
         <source src="assets/audio/Over The Influence.mp3" type="audio/mpeg">
     </audio>
@@ -61,7 +59,7 @@
         const starsContainer = document.getElementById('stars');
         const allStars = []; // Mảng để lưu trữ tất cả các ngôi sao
 
-        for (let i = 0; i < 300; i++) {
+        for (let i = 0; i < 200; i++) {
             const star = document.createElement('div');
             star.className = 'star';
             star.style.left = Math.random() * 100 + '%';
@@ -71,7 +69,7 @@
             allStars.push(star);
         }
 
-        const interactionRadius = 150; // ĐIỀU CHỈNH QUAN TRỌNG: Tăng bán kính tương tác (pixels)
+        const interactionRadius = 100; // ĐIỀU CHỈNH QUAN TRỌNG: Tăng bán kính tương tác (pixels)
 
         document.addEventListener('mousemove', (e) => {
             const mouseX = e.clientX;
@@ -106,6 +104,22 @@
                 .catch(error => {});
         });
         
+        // Chờ cho tài liệu được tải hoàn tất
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // 1. Tìm phần tử overlay
+            const overlayDiv = document.querySelector('.cte');
+
+            // 2. Kiểm tra nếu tìm thấy phần tử đó
+            if (overlayDiv) {
+                // 3. Thêm trình lắng nghe sự kiện 'click'
+                overlayDiv.addEventListener('click', function() {
+                    // 4. Khi click, thêm class 'hidden' vào phần tử này
+                    // CSS sẽ xử lý hiệu ứng làm mờ và ẩn nó đi
+                    this.classList.add('hidden');
+                });
+            }
+        });
+
     </script>
 </body>
 </html>
