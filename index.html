@@ -10,8 +10,6 @@
 <body>
     <div class="stars" id="stars"></div>
 
-    <div id="star-flare"></div>
-
     <div class="profile-container">
         <div class="avatar-container">
             <img class="avatar" src="assets/img/favicon.ico" alt="JustaPie">
@@ -55,54 +53,69 @@
 
     <div class="contact">Coded by @justapiee - pie9757</div>
 
-    <audio autoplay loop>
+    <audio id="backgroundAudio" loop>
         <source src="assets/audio/Over The Influence.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        // Generate random stars
         const starsContainer = document.getElementById('stars');
-        // Giữ nguyên 300 sao hoặc bạn có thể tăng/giảm số này
-        for (let i = 0; i < 300; i++) {
+        const allStars = []; // Mảng để lưu trữ tất cả các ngôi sao
+
+        for (let i = 0; i < 300; i++) { // Số lượng ngôi sao
             const star = document.createElement('div');
             star.className = 'star';
             star.style.left = Math.random() * 100 + '%';
             star.style.top = Math.random() * 100 + '%';
             star.style.animationDelay = Math.random() * 3 + 's';
             starsContainer.appendChild(star);
+            allStars.push(star); // Thêm ngôi sao vào mảng
         }
 
-        // --- CODE MỚI CHO HIỆU ỨNG TRỎ CHUỘT ---
-        const starFlare = document.getElementById('star-flare');
+        const interactionRadius = 100; // Bán kính tương tác (pixels)
 
-        // Theo dõi vị trí chuột trên toàn bộ trang
         document.addEventListener('mousemove', (e) => {
-            // SỬA ĐỔI: Dùng thuộc tính CSS 'transform' để di chuyển phần tử. 
-            // Phương pháp này nhanh hơn và hoạt động tốt hơn với translate(-50%, -50%) trong CSS.
-            starFlare.style.transform = `translate(-50%, -50%) translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
 
-            // Đảm bảo vùng sáng hiển thị khi chuột di chuyển
-            starFlare.style.opacity = 1; 
+            allStars.forEach(star => {
+                // Lấy vị trí thực tế của ngôi sao trên màn hình
+                const starRect = star.getBoundingClientRect();
+                const starX = starRect.left + starRect.width / 2;
+                const starY = starRect.top + starRect.height / 2;
+
+                // Tính khoảng cách giữa chuột và ngôi sao
+                const distance = Math.sqrt(
+                    Math.pow(mouseX - starX, 2) + Math.pow(mouseY - starY, 2)
+                );
+
+                // Nếu ngôi sao nằm trong bán kính tương tác, làm nó sáng lên
+                if (distance < interactionRadius) {
+                    star.classList.add('active');
+                    // Có thể điều chỉnh thêm độ sáng dựa trên khoảng cách
+                    // const brightness = 1 - (distance / interactionRadius); // 1 khi sát, 0 khi ở rìa
+                    // star.style.opacity = 0.5 + 0.5 * brightness; 
+                    // star.style.boxShadow = `0 0 ${5 * brightness}px ${2 * brightness}px rgba(255, 255, 255, ${0.8 * brightness})`;
+                } else {
+                    star.classList.remove('active');
+                    // star.style.opacity = ''; // Đặt lại về CSS mặc định
+                    // star.style.boxShadow = ''; // Đặt lại về CSS mặc định
+                }
+            });
         });
 
-        // Tắt hiệu ứng khi chuột rời khỏi cửa sổ trình duyệt (hoặc không còn focus)
-        document.addEventListener('mouseleave', () => {
-            // Về lại trạng thái bình thường (opacity = 0)
-            starFlare.style.opacity = 0; 
+        // Xử lý phát nhạc (như đã thảo luận)
+        const backgroundAudio = document.getElementById('backgroundAudio');
+        document.addEventListener('click', function attemptPlay() {
+            backgroundAudio.play()
+                .then(() => {
+                    document.removeEventListener('click', attemptPlay);
+                    console.log("Audio started playing successfully.");
+                })
+                .catch(error => {
+                    console.warn("Audio playback was prevented. Waiting for next interaction.", error);
+                });
         });
-
-        // Xử lý trường hợp chuột dừng lại trên profile-container
-        const profileContainer = document.querySelector('.profile-container');
-        profileContainer.addEventListener('mouseenter', () => {
-            // Nếu muốn tắt hiệu ứng khi chuột vào vùng profile, dùng:
-            // starFlare.style.opacity = 0;
-            // Nếu muốn giữ, không cần code này.
-        });
-        profileContainer.addEventListener('mouseleave', () => {
-            // Bật lại khi chuột rời khỏi profile
-            starFlare.style.opacity = 1;
-        });
-
+        
     </script>
 </body>
 </html>
