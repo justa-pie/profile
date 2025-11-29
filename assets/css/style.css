@@ -162,6 +162,27 @@ h1 {
     bottom: 10px;
 }
 
+#star-flare {
+    position: fixed; /* Dùng fixed để nó không bị ảnh hưởng bởi scroll */
+    width: 100px; 
+    height: 100px;
+    border-radius: 50%;
+    /* Ban đầu ẩn, chỉ hiện ra khi chuột di chuyển */
+    opacity: 0; 
+    pointer-events: none; /* Rất quan trọng: cho phép click xuyên qua vùng sáng để tương tác với các phần tử khác */
+    transform: translate(-50%, -50%); /* Căn giữa vùng sáng với vị trí chuột */
+    z-index: 5; /* Đặt dưới profile-container nhưng trên nền đen */
+    
+    /* Transition mượt mà khi di chuyển và thay đổi opacity */
+    transition: opacity 0.4s ease, box-shadow 0.4s ease; 
+
+    /* Hiệu ứng Phát sáng (Glow Effect) */
+    box-shadow: 0 0 15px 8px rgba(255, 255, 255, 0.7),
+                0 0 40px 15px rgba(173, 216, 230, 0.4), /* Blueish glow */
+                0 0 80px 30px rgba(255, 255, 0, 0.2); /* Yellowish haze */
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .profile-container {

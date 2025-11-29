@@ -8,29 +8,26 @@
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
 </head>
 <body>
-    <!-- Animated stars -->
     <div class="stars" id="stars"></div>
 
-    <!-- Main profile container -->
+    <div id="star-flare"></div>
+
     <div class="profile-container">
-        <!-- Avatar with status -->
         <div class="avatar-container">
             <img class="avatar" src="assets/img/favicon.ico" alt="JustaPie">
         </div>
 
-        <!-- Name and info -->
         <h1>Justa Pie</h1>
-        <p class="subtitle">I just sort of always feel sick without you baby</p><br>
-        <p class="subtitle">Nothing seems to stick without you, baby</p><br>
-        <p class="subtitle">It's just the pits without you, baby</p><br>
-        <p class="subtitle">It's really just the pits without you, baby</p><br>
+        <p class="subtitle">I just sort of always feel sick without you baby</p>
+        <p class="subtitle">Nothing seems to stick without you, baby</p>
+        <p class="subtitle">It's just the pits without you, baby</p>
+        <p class="subtitle">It's really just the pits without you, baby</p>
         <p class="subtitle">It's like everyone's a dick without you, baby</p>
         <div class="location">
             <span>📍</span>
             <span>Vietnam.</span>
         </div>
 
-        <!-- Social icons -->
         <div class="social-icons">
             <a href="https://open.spotify.com/user/31qnjpnb6alfzi3xe3nrog6vmnpy?si=uM-zDuUUT7-JDx7aBVGlBw" class="social-icon" target="_blank" title="Spotify">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
@@ -67,6 +64,7 @@
     <script>
         // Generate random stars
         const starsContainer = document.getElementById('stars');
+        // Giữ nguyên 300 sao hoặc bạn có thể tăng/giảm số này
         for (let i = 0; i < 300; i++) {
             const star = document.createElement('div');
             star.className = 'star';
@@ -75,6 +73,40 @@
             star.style.animationDelay = Math.random() * 3 + 's';
             starsContainer.appendChild(star);
         }
+
+        // --- CODE MỚI CHO HIỆU ỨNG TRỎ CHUỘT ---
+        const starFlare = document.getElementById('star-flare');
+
+        // Theo dõi vị trí chuột trên toàn bộ trang
+        document.addEventListener('mousemove', (e) => {
+            // Cập nhật vị trí của vùng sáng
+            // Dùng clientX và clientY là vị trí chuột
+            // Trừ đi 50% kích thước vùng sáng (width/height 100px) để căn giữa chuột
+            starFlare.style.left = e.clientX + 'px';
+            starFlare.style.top = e.clientY + 'px';
+            
+            // Đảm bảo vùng sáng hiển thị khi chuột di chuyển
+            starFlare.style.opacity = 1; 
+        });
+
+        // Tắt hiệu ứng khi chuột rời khỏi cửa sổ trình duyệt (hoặc không còn focus)
+        document.addEventListener('mouseleave', () => {
+            // Về lại trạng thái bình thường (opacity = 0)
+            starFlare.style.opacity = 0; 
+        });
+
+        // Xử lý trường hợp chuột dừng lại trên profile-container
+        const profileContainer = document.querySelector('.profile-container');
+        profileContainer.addEventListener('mouseenter', () => {
+            // Nếu muốn tắt hiệu ứng khi chuột vào vùng profile, dùng:
+            // starFlare.style.opacity = 0;
+            // Nếu muốn giữ, không cần code này.
+        });
+        profileContainer.addEventListener('mouseleave', () => {
+            // Bật lại khi chuột rời khỏi profile
+            starFlare.style.opacity = 1;
+        });
+
     </script>
 </body>
 </html>
